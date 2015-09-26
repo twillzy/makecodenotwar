@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tinderwar</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<% if current_user %>
+<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+    <ul class="nav navmenu-nav">
+	    <li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
+	        <%= link_to root_path do %><i class="fa fa-users"></i> Discover <% end %>
+	        <%= link_to root_path do %><i class="fa fa-heart"></i> Matches <% end %>
+	        <%= link_to root_path do %><i class="fa fa-cog"></i> Settings <% end %>
+	        <%= link_to 'sign_out', method: :delete do %><i class="fa fa-cog"></i> Log Out <% end %>
+
+	    </li>
+</ul>
+</nav>
+
+<div class="navbar navbar-default navbar-fixed-top">
+  <button type="button" class="navbar-toggle button-nav" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+    <i class="fa fa-cog"></i>
+    </button>
+    <button type="button" class="navbar-toggle button-nav pull-right" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+    <i class="fa fa-heart"></i>
+  </button>
+</div>
+
+<% else %>
+
+<a class="navbar-brand" href="#">
+ <%= image_tag "logo_white.png", alt: "tinstuck Logo", class: "logo-brand" %>
+</a>
+
+<% end %>
+
+<%= yield %>
+
+
+</body>
+</html>
