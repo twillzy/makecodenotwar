@@ -1,0 +1,32 @@
+<div class="container">
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Name</th>
+				<th>Matched on</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th scope="row"><%= image_tag "cat.jpg", size: "30x30" %></th>
+				<td>Username</td>
+				<td>2015-05-22</td>
+				<td class="text-right">
+				<a href="" data-toggle="tooltip" data-placement="top" title="Get Email"><i class="fa fa fa-envelope"></i></a>
+				<a href="" data-toggle="tooltip" data-placement="top" title="Unmatch"><i class="fa fa fa-times"></i></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</div>
+
+<script type="text/javascript">
+	$( function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	})
+</script>
