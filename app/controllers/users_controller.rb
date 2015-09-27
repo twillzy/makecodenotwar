@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    authorize! :update, @user
   end
 
   def update
@@ -55,6 +56,7 @@ class UsersController < ApplicationController
       format.js
     end
   end
+  
   private
 
   def set_user
