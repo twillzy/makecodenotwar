@@ -3,11 +3,12 @@ class UsersController < ApplicationController
   before_action :require_login
 
   def index
-      if params[:id]
-        @users = User.gender(current_user).not_me(current_user).where('id < ?', params[:id]).limit(10) - current_user.matches(current_user)
-      else
-        @users = User.gender(current_user).not_me(current_user).limit(10) - current_user.matches(current_user)
-      end
+      # if params[:id]
+      #   @users = User.gender(current_user).not_me(current_user).where('id < ?', params[:id]).limit(10) - current_user.matches(current_user)
+      # else
+      #   @users = User.gender(current_user).not_me(current_user).limit(10) - current_user.matches(current_user)
+      # end
+      @users = User.all
 
         respond_to do |format|
         format.html
