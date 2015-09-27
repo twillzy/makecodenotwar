@@ -12,13 +12,20 @@
 <% if current_user %>
 <nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
     <ul class="nav navmenu-nav">
-	    <li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
-	        <%= link_to root_path do %><i class="fa fa-users"></i> Discover <% end %>
-	        <%= link_to root_path do %><i class="fa fa-heart"></i> Matches <% end %>
-	        <%= link_to root_path do %><i class="fa fa-cog"></i> Settings <% end %>
-	        <%= link_to 'sign_out', method: :delete do %><i class="fa fa-cog"></i> Log Out <% end %>
+			<li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
+				<%= link_to root_path do %><i class="fa fa-users"></i> Discover <% end %>
+			</li>
 
-	    </li>
+			<li class="<%= if params[:action] == "matches" then "active" end %> nav-btn">
+				<%= link_to matches_user_path(current_user) do %><i class="fa fa-heart"></i> Matches <% end %>
+			</li>
+
+			<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
+				<%= link_to edit_user_path(current_user) do %><i class="fa fa-cog"></i> Settings <% end %>
+			</li>
+
+			<li class="nav-btn"><%= link_to '/sign_out', method: :delete do %><i class="fa fa-cog"></i> Log out <% end %></li>
+
 </ul>
 </nav>
 

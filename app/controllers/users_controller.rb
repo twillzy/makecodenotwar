@@ -10,12 +10,6 @@ class UsersController < ApplicationController
         @users = User.gender(current_user).not_me(current_user).limit(10) - current_user.matches(current_user)
       end
 
-      # if params[:id]
-      #   @users = User.where('id < ?', params[:id]).limit(2)
-      # else
-      #   @users = User.all.limit(2)
-      # end
-
         respond_to do |format|
         format.html
         format.js
