@@ -10,15 +10,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<th scope="row"><%= image_tag "cat.jpg", size: "30x30" %></th>
-				<td>Username</td>
-				<td>2015-05-22</td>
-				<td class="text-right">
-				<a href="" data-toggle="tooltip" data-placement="top" title="Get Email"><i class="fa fa fa-envelope"></i></a>
-				<a href="" data-toggle="tooltip" data-placement="top" title="Unmatch"><i class="fa fa fa-times"></i></a>
-				</td>
-			</tr>
+			<%= render partial: "match", collection: @matches %>
 		</tbody>
 	</table>
 

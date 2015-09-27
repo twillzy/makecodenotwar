@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback', to: "sessions#create"
   match 'sign_out', to: "sessions#destroy", via: :delete
 
+  post 'create_friendship' => 'friendships#create'
+  delete 'delete_friendship' => 'friendships#destroy'
+
 end
