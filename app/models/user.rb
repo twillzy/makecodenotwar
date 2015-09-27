@@ -71,6 +71,26 @@ class User < ActiveRecord::Base
 		end
 	end
 
+	# Filter Methods
+	def self.gender(user)
+		case user.interest
+			when "Male"
+				where('gender = ?', 'male')
+			when "Female"
+				where('gender = ?', 'female')
+			else
+				all
+		end
+	end
+
+	def self.not_me(user)
+		where.not(id: user.id)
+	end
+
+	def matches(current_user)
+		friendships.where(state: "pending").map(&:friend) + current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
+	end
+
 	private
 
 	def self.process_uri(uri)
