@@ -1,13 +1,15 @@
 <tr>
-	<th scope="row"><%= image_tag "#{match.avatar(:thumb)}", size: "30x30" %></th>
+	<th scope="row"><%= image_tag "#{match.avatar}", size: "30x30" %></th>
 	<td><%= link_to match.name, profile_user_path(match.id) %></td>
-	<td><%= match.updated_at.strftime('%d%m%y') %></td>
+	<td><%= match.updated_at.strftime('%d/%m/%Y') %></td>
 	<td class="text-right">
-	<%= link_to matches_get_email_path %>
-	<a href="" data-toggle="tooltip" data-placement="top" title="Get Email"><i class="fa fa fa-envelope"></i></a>
 
-	<%= link_to delete_friendship_path(friend_id: match.id), :data => {toggle: "tooltip", placement: "top", confirm: "Are you sure?"}, title: "Unmatch", id: "delete_friendship", method: :delete do%>
-	<i class="fa fa fa-times"></i>
+	<%= link_to matches_get_email_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Email", remote: :true  do %>
+		<i class="fa fa fa-envelope"></i>
+	<% end %>
+
+	<%= link_to delete_friendship_path(friend_id: match.id), :data => {toggle: "tooltip", placement: "top", confirm: "Are you sure you want to unmatch with #{match.name} ?" }, title: "Unmatch", id: "delete_friendship", method: :delete do %>
+		<i class="fa fa fa-times"></i>
 	<% end %>
 	</td>
 </tr>
