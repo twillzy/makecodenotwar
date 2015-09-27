@@ -8,7 +8,12 @@ class UsersController < ApplicationController
       # else
       #   @users = User.gender(current_user).not_me(current_user).limit(10) - current_user.matches(current_user)
       # end
-      @users = User.all
+
+      if params[:id]
+        @users = User.where('id < ?', params[:id]).limit(2)
+      else
+        @users = User.all.limit(2)
+      end
 
         respond_to do |format|
         format.html
@@ -24,5 +29,38 @@ class UsersController < ApplicationController
   end
 
   def matches
+    @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state:"ACTIVE").map(&:user)
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
