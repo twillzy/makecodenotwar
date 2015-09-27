@@ -17,4 +17,8 @@
 //= require jquery.easing.min
 //= require jasny-bootstrap
 //= require supersized
+//= require jquery.jTinder
+//= require jquery.transform2d
+//= require tinysort
+//= require jquery.tinysort
 //= require_tree .
