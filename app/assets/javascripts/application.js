@@ -18,6 +18,10 @@
 //= require jquery.easing.min
 //= require jasny-bootstrap
 //= require supersized
+<<<<<<< HEAD
+=======
+//= require jquery.jTinder
+>>>>>>> origin/master
 //= require jquery.transform2d
 //= require tinysort
 //= require jquery.tinysort
