@@ -56,3 +56,4 @@ gem "paperclip"
 gem 'aws-sdk', '< 2.0'
 gem "figaro"
 gem "simple_form"
+gem "cancan"
