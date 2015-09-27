@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   post 'create_friendship' => 'friendships#create'
   delete 'delete_friendship' => 'friendships#destroy'
 
+  get 'matches/get_email' => 'user/get_email'
+
 end
