@@ -14,7 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require jquery.jTinder
 //= require jquery.easing.min
 //= require jasny-bootstrap
 //= require supersized
+//= require jquery.transform2d
+//= require tinysort
+//= require jquery.tinysort
 //= require_tree .
