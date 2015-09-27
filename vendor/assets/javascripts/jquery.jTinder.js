@@ -7,11 +7,8 @@
  * Licensed under GPL Version 2.
  * https://github.com/do-web/jTinder/blob/master/LICENSE
  */
-<<<<<<< HEAD
 
  
-=======
->>>>>>> origin/master
 ;(function ($, window, document, undefined) {
 	var pluginName = "jTinder",
 		defaults = {
@@ -57,7 +54,6 @@
 			$(element).bind('touchend mouseup', this.handler);
 		},
 
-<<<<<<< HEAD
 		bindNew: function(element){
             panes = $(">ul>li", element);
             pane_count = panes.length;
@@ -119,17 +115,6 @@
 					}
       		} 	
 
-=======
-		bindNew: function (element) {
-			panes = $(">ul>li", element);
-			pane_count = panes.length
-			current_pane = panes.length - 1;
-		},
-
-		showPane: function (index) {
-			panes.eq(current_pane).hide();
-			current_pane = index;
->>>>>>> origin/master
 		},
 
 		next: function () {
@@ -152,16 +137,12 @@
 				}
 				$that.next();
 			});
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 		},
 
 		handler: function (ev) {
 			ev.preventDefault();
 
-<<<<<<< HEAD
 				switch (ev.type) {
 					case 'touchstart':
 						if(touchStart === false) {
@@ -241,91 +222,10 @@
 				}
 			} // SWITCH -- END
 	
-=======
-			switch (ev.type) {
-				case 'touchstart':
-					if(touchStart === false) {
-						touchStart = true;
-						xStart = ev.originalEvent.touches[0].pageX;
-						yStart = ev.originalEvent.touches[0].pageY;
-					}
-				case 'mousedown':
-					if(touchStart === false) {
-						touchStart = true;
-						xStart = ev.pageX;
-						yStart = ev.pageY;
-					}
-				case 'mousemove':
-				case 'touchmove':
-					if(touchStart === true) {
-						var pageX = typeof ev.pageX == 'undefined' ? ev.originalEvent.touches[0].pageX : ev.pageX;
-						var pageY = typeof ev.pageY == 'undefined' ? ev.originalEvent.touches[0].pageY : ev.pageY;
-						var deltaX = parseInt(pageX) - parseInt(xStart);
-						var deltaY = parseInt(pageY) - parseInt(yStart);
-						var percent = ((100 / pane_width) * deltaX) / pane_count;
-						posX = deltaX + lastPosX;
-						posY = deltaY + lastPosY;
-
-						panes.eq(current_pane).css("transform", "translate(" + posX + "px," + posY + "px) rotate(" + (percent / 2) + "deg)");
-
-						var opa = (Math.abs(deltaX) / $that.settings.threshold) / 100 + 0.2;
-						if(opa > 1.0) {
-							opa = 1.0;
-						}
-						if (posX >= 0) {
-							panes.eq(current_pane).find($that.settings.likeSelector).css('opacity', opa);
-							panes.eq(current_pane).find($that.settings.dislikeSelector).css('opacity', 0);
-						} else if (posX < 0) {
-
-							panes.eq(current_pane).find($that.settings.dislikeSelector).css('opacity', opa);
-							panes.eq(current_pane).find($that.settings.likeSelector).css('opacity', 0);
-						}
-					}
-					break;
-				case 'mouseup':
-				case 'touchend':
-					touchStart = false;
-					var pageX = (typeof ev.pageX == 'undefined') ? ev.originalEvent.changedTouches[0].pageX : ev.pageX;
-					var pageY = (typeof ev.pageY == 'undefined') ? ev.originalEvent.changedTouches[0].pageY : ev.pageY;
-					var deltaX = parseInt(pageX) - parseInt(xStart);
-					var deltaY = parseInt(pageY) - parseInt(yStart);
-
-					posX = deltaX + lastPosX;
-					posY = deltaY + lastPosY;
-					var opa = Math.abs((Math.abs(deltaX) / $that.settings.threshold) / 100 + 0.2);
-
-					if (opa >= 1) {
-						if (posX > 0) {
-							panes.eq(current_pane).animate({"transform": "translate(" + (pane_width) + "px," + (posY + pane_width) + "px) rotate(60deg)"}, $that.settings.animationSpeed, function () {
-								if($that.settings.onLike) {
-									$that.settings.onLike(panes.eq(current_pane));
-								}
-								$that.next();
-							});
-						} else {
-							panes.eq(current_pane).animate({"transform": "translate(-" + (pane_width) + "px," + (posY + pane_width) + "px) rotate(-60deg)"}, $that.settings.animationSpeed, function () {
-								if($that.settings.onDislike) {
-									$that.settings.onDislike(panes.eq(current_pane));
-								}
-								$that.next();
-							});
-						}
-					} else {
-						lastPosX = 0;
-						lastPosY = 0;
-						panes.eq(current_pane).animate({"transform": "translate(0px,0px) rotate(0deg)"}, $that.settings.animationRevertSpeed);
-						panes.eq(current_pane).find($that.settings.likeSelector).animate({"opacity": 0}, $that.settings.animationRevertSpeed);
-						panes.eq(current_pane).find($that.settings.dislikeSelector).animate({"opacity": 0}, $that.settings.animationRevertSpeed);
-					}
-					break;
-			}
-		}
->>>>>>> origin/master
 	};
 
 	$.fn[ pluginName ] = function (options) {
 		this.each(function () {
-<<<<<<< HEAD
             if (!$.data(this, "plugin_" + pluginName)) {
                 $.data(this, "plugin_" + pluginName, new Plugin(this, options));
             }
@@ -341,20 +241,3 @@
 	};
 
 })(jQuery, window, document);
-=======
-			if (!$.data(this, "plugin_" + pluginName)) {
-				$.data(this, "plugin_" + pluginName, new Plugin(this, options));
-			}
-			else if ($.isFunction(Plugin.prototype[options])) {
-				$.data(this, 'plugin_' + pluginName)[options]();
-		    } 
-		    else {
-			$.data(this, 'plugin_' + pluaginName).bindNew(this)
-		}
-
-		}); 
-		return this;
-	};
-
-})(jQuery, window, document);
->>>>>>> origin/master
