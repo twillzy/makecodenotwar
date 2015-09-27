@@ -89,7 +89,11 @@ body {
 /* Like & dislike badge images */
 #tinderslide .like,
 #tinderslide .dislike {
+<<<<<<< HEAD
     background: image-url("liked.png") no-repeat scroll 0 0;
+=======
+    background: url("liked.png") no-repeat scroll 0 0;
+>>>>>>> origin/master
     opacity: 0;
     height: 80px;
     position: absolute;
@@ -110,7 +114,11 @@ body {
 #tinderslide .dislike {
     right: 45px;
     left: auto;
+<<<<<<< HEAD
     background: image-url("nope.png") no-repeat scroll 0 0;
+=======
+    background: url("nope.png") no-repeat scroll 0 0;
+>>>>>>> origin/master
 }
 
 /* Image container */
@@ -152,11 +160,19 @@ body {
 }
 
 .actions a.dislike i {
+<<<<<<< HEAD
     background: image-url("dislike_button.png") no-repeat scroll center center;
 }
 
 .actions a.like i {
     background: image-url("like_button.png") no-repeat scroll center center;
+=======
+    background: url("../img/dislike_button.png") no-repeat scroll center center;
+}
+
+.actions a.like i {
+    background: url("../img/like_button.png") no-repeat scroll center center;
+>>>>>>> origin/master
 }
 
 .actions a {
@@ -187,7 +203,28 @@ body {
 }
 
 /* jTinder images */
+<<<<<<< HEAD
 #tinderslide .img {
+=======
+#tinderslide .pane5 .img {
+    background: image-url("cat.jpg") no-repeat scroll center center;
+    background-size: cover;
+}
+#tinderslide .pane4 .img {
+    background: image-url("cat.jpg") no-repeat scroll center center;
+    background-size: cover;
+}
+#tinderslide .pane3 .img {
+    background: image-url("cat.jpg") no-repeat scroll center center;
+    background-size: cover;
+}
+#tinderslide .pane2 .img {
+    background: image-url("cat.jpg") no-repeat scroll center center;
+    background-size: cover;
+}
+#tinderslide .pane1 .img {
+    background: image-url("cat.jpg") no-repeat scroll center center;
+>>>>>>> origin/master
     background-size: cover;
 }
 

@@ -1,11 +1,19 @@
 <li id="<%= user.id %>">
     <div class="img"><%= image_tag user.avatar.url, height: '370', width: '370' %></div>
     <div class="user-name pull-left">
+<<<<<<< HEAD
     	<%= link_to profile_user_path(user.id) do %><b><%=user.name %></b><% end %>
+=======
+    	<%= link_to profile_user_path(user.id) do %><b><%= user.name %></b><% end %>
+>>>>>>> origin/master
     </div>
     <div class="user-location text-right"><i class="fa fa-map-marker"></i> <%= user.location %></div>
     <div class="like"></div>
     <div class="dislike"></div>
+<<<<<<< HEAD
     <%= link_to "", create_friendship_path(friend_id: user.id), id: "user_#{user.id}", method: :post, :remote => true %>
 </li>
 
+=======
+</li>
+>>>>>>> origin/master
