@@ -1,2 +1,28 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<div class="container">
+	<br>
+
+<div class="row">
+<div class="text-center">
+<div class="wrap">
+
+	<div id="tinderslide">
+	    <ul>
+	    	<%= render @users %>
+	    </ul>
+	</div>
+
+
+        <div class="actions">
+            <a href="#" class="dislike"><i class="fa fa-times"></i></a>
+            <a href="#" class="like"><i class="fa fa-heart"></i></a>
+        </div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	$("#tinderslide > ul li").tsort({attr: "id"});
+</script>
