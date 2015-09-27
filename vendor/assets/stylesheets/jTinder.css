@@ -158,6 +158,7 @@ body {
 .actions a.dislike i {
 
     background: image-url("dislike_button.png") no-repeat scroll center center;
+}
 
 .actions a.like i {
     background: image-url("like_button.png") no-repeat scroll center center;
