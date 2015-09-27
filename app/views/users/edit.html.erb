@@ -46,3 +46,13 @@
 </div>
 
 <% end %>
+
+<script type="text/javascript">
+	$('.gender').click(function(){
+		$("#dropdownMenu1").text( $(this).text() );
+		$("#dropdownMenu1").append('<span class="caret"></span>');
+		$("#user_interest").val( $(this).text() );
+	});
+</script>
+
+

@@ -18,21 +18,20 @@ class UsersController < ApplicationController
   end
 
   def edit
-    authorize! :update, @user
   end
 
   def update
     if @user.update(users_params)
-      respond_to do |format|
-        format.html { redirect_to users_path}
-      end
+    respond_to do |format|
+      format.html {redirect_to users_path}
+    end
     else
       redirect_to edit_user_path(@user)
     end
+
   end
 
   def destroy
-    
     if @user.destroy
       session[:user_id] = nil
       session[:omniauth] = nil
@@ -40,25 +39,22 @@ class UsersController < ApplicationController
     else
       redirect_to edit_user_path(@user)
     end
-
   end
 
   def profile
   end
+
 
   def matches
     authorize! :read, @user
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
   end
 
-
   def get_email
     respond_to do |format|
       format.js
     end
   end
-
-
   private
 
   def set_user
@@ -68,5 +64,5 @@ class UsersController < ApplicationController
   def users_params
     params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth)
   end
-
 end
+
