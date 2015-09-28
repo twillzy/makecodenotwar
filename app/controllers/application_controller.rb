@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   	end
   end
 
+  # These two methods will be available in all controllers and views
   helper_method :require_login
   helper_method :current_user
 

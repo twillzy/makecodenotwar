@@ -54,7 +54,6 @@ class UsersController < ApplicationController
 
   def get_email
     respond_to do |format|
-      raise "hello"
       format.js
     end
   end
