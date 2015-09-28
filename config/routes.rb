@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+
+
   get 'auth/facebook/callback', to: "sessions#create"
   match 'sign_out', to: "sessions#destroy", via: :delete
 
@@ -18,3 +20,4 @@ Rails.application.routes.draw do
   get 'matches/get_email' => 'users#get_email'
 
 end
+
