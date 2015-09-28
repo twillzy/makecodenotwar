@@ -58,3 +58,4 @@ gem "figaro"
 gem "simple_form"
 gem "cancan"
 gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
+gem "rails_12factor", group: :production
