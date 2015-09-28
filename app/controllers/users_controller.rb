@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def matches
     authorize! :read, @user
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
+    # raise "hello"
   end
 
   def get_email
@@ -56,7 +57,7 @@ class UsersController < ApplicationController
       format.js
     end
   end
-  
+
   private
 
   def set_user
