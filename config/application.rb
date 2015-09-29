@@ -18,14 +18,14 @@ Bundler.require(*Rails.groups)
 module Tinderwar
   class Application < Rails::Application
 
-    config.paperclip_defaults ={
-        :storage => :s3,
-        :s3_credentials => {
-            :bucket => ENV['AWS_BUCKET'],
-            :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-            :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
-            :s3_host_name => "s3-ap-southeast-2.amazonaws.com"
-        }
+    config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => { 
+         :bucket => "project-two",
+         :access_key_id => "AKIAI77762335SOVG5KQ",
+         :secret_access_key => "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",
+         :s3_host_name => "s3-ap-southeast-2.amazonaws.com"
+      }
     }
 
     config.active_record.raise_in_transactional_callbacks = true
