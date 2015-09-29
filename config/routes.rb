@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     member do
       get 'profile'
       get 'matches'
+      # resources :conversations do
+      #   resources :messages
+      # end
     end
   end
 
@@ -18,5 +21,9 @@ Rails.application.routes.draw do
   delete 'delete_friendship' => 'friendships#destroy'
 
   get 'matches/get_email' => 'users#get_email'
+
+  resources :conversations do
+    resources :messages
+  end
 
 end
