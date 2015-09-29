@@ -1,0 +1,57 @@
+
+
+RELATIONSHIP / FRIENDSHIP
+
+user_id
+friend_id
+test_id
+status
+...
+...
+
+
+status = initiated, acceptance, tests completed (chat ready)
+
+
+STEPS
+
+1. User 1 liked User 2's photo
+	- new relationship created - user id, friend id, and status all assigned (status set to initiated)
+
+	In params, you will have a user_id and a friend_id
+		Are there any friendships with both of those IDs?
+		If not, create a new friendship
+
+	# relationship = Relationship.new user_id: 1, friend_id: 2, test_id: 3, status: "initiated"
+
+2. User 2 likes User 1's photo
+	- finds the relationship
+	- status updated to ready (both have accepted) and test added
+
+	In params, you will have both IDs
+		There is going to be a friendship 
+		This is where the match happens
+		It's also where the test is assigned
+
+	relationship = Relationship.find_by friend_id: @current_user.id, status: "initiated"
+	relationship.update status: "ready"
+
+3. Complete the tests
+	- finds the relationship, sets the status to complete
+
+	Find me the friendship where I am the user and someone else is the friend, get me that test
+	We will both have to complete the test
+	Once we have, we move on and we set the status to complete
+
+4. Ready to chat
+
+	relationship = Relationship.find_by friend_id: @current_user.id, status: "initiated"
+	relationship.update status: "completed"
+
+	It's complete, I am ready to chat
+
+
+initiated
+ready
+completed
+
