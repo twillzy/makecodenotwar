@@ -21,5 +21,7 @@ Rails.application.routes.draw do
 
   get 'matches/get_email' => 'users#get_email'
 
+  get 'matches/put_solution' => 'users#put_solution'
+
 end
 

@@ -2,13 +2,15 @@
 #
 # Table name: friendships
 #
-#  id          :integer          not null, primary key
-#  user_id     :integer
-#  friend_id   :integer
-#  friended_at :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  state       :string           default("pending")
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  friend_id      :integer
+#  friended_at    :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  state          :string           default("pending")
+#  usersolution   :string
+#  friendsolution :string
 #
 
 class Friendship < ActiveRecord::Base
