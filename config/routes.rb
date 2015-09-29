@@ -6,8 +6,13 @@ Rails.application.routes.draw do
     member do
       get 'profile'
       get 'matches'
+      # resources :conversations do
+      #   resources :messages
+      # end
     end
   end
+
+
 
   get 'auth/facebook/callback', to: "sessions#create"
 
@@ -19,4 +24,13 @@ Rails.application.routes.draw do
 
   get 'matches/get_email' => 'users#get_email'
 
+
+  get 'matches/put_solution' => 'users#put_solution'
+
+  resources :conversations do
+    resources :messages
+  end
+
+
 end
+
