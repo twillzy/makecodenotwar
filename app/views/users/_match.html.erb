@@ -12,6 +12,10 @@
 		<i class="fa fa fa-envelope"></i>
 	<% end %>
 
+	<%= link_to "#", class: "start-conversation", "data-sid" => current_user.id, "data-rip" => match.id, :data => {toggle: "tooltip", placement: "top" }, title: "Start Chat", remote: :true  do %>
+		<i class="fa fa fa-comment"></i>
+	<% end %>
+
 	<%= link_to delete_friendship_path(friend_id: match.id), :data => {toggle: "tooltip", placement: "top", confirm: "Are you sure you want to unmatch with #{match.name} ?" }, title: "Unmatch", id: "delete_friendship", method: :delete do %>
 		<i class="fa fa fa-times"></i>
 	<% end %>
