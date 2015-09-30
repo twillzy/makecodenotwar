@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :put_solution]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :put_solution]
 
   def index
       if params[:id]
@@ -60,11 +60,25 @@ class UsersController < ApplicationController
     end
   end
 
-  def put_solution
+  def get_question
     respond_to do |format|
       format.js
     end
   end
+
+  def put_solution
+      inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
+
+        friendship = current_user.friendships.where(friend_id: @user.id).first
+         if inverse_friendship.blank?
+    friendship.update_attribute(:usersolution, params['solution']) 
+  else  
+      friendship.update_attribute(:friendsolution, params['solution'])   
+
+       render :json => []
+   end    
+  end
+
 
 
   private
@@ -77,4 +91,23 @@ class UsersController < ApplicationController
     params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth, :question)
   end
 end
+
+    #get the friendship, and figuer out if friend or user , and then figure out which slot to put in 
+    #  @this_inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
+    # if @this_inverse_friendship.blank?
+    #   current_user.friendships.where(friend_id: @user.id).first.update_attribute(:usersolution, params['solution'])
+    #  else 
+    #   @user.friendships.where(friend_id: current_user.id).first.update_attribute(:friendsolution, params['solution'])        
+ 
+    # end
+
+
+  #     inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
+
+  #       friendship = current_user.friendships.where(friend_id: @user.id).first
+  #        if inverse_friendship.blank?
+  #   friendship.update_attribute(:usersolution, params['solution']) 
+  # else  
+  #     friendship.update_attribute(:friendsolution, params['solution']) 
+
 

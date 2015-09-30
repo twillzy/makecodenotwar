@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   get 'matches/get_email' => 'users#get_email'
 
 
-  get 'matches/put_solution' => 'users#put_solution'
+  get 'matches/get_question' => 'users#get_question'
+  post 'matches/put_solution' => 'users#put_solution'
 
   resources :conversations do
     resources :messages

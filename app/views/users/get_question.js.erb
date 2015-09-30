@@ -1,0 +1,33 @@
+swal({
+	title: "<%= @user.question %>",
+	text: "Insert your answer below:",
+	type: "input",
+	showCancelButton: true,
+	closeOnConfirm: false,
+	animation: "slide-from-top",
+	inputPlaceholder: "Write something"
+}, function(inputValue) {
+	if (inputValue === false) return false;
+	if (inputValue === "") {
+		swal.showInputError("You need to write something!");
+		return false 
+	}
+    else 
+	$.ajax({
+		url: '<%= matches_put_solution_path(id: @user.id) %>',
+		method: 'post',
+		data: {
+			solution: inputValue
+		}
+	}).done(function () {
+		console.log('all done');
+	});
+
+	swal("Nice! You have submitted your answer!");
+});
+
+// u2.friendships.where(friend_id: 1).first.update_attribute(:usersolution, 'hi’)
+
+
+//james.friendships.where(friend_id: 4).first.update_attribute(:usersolution, "YES")
+
