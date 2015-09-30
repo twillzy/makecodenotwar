@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  get 'notifications' => 'users#notifications'
 
   get 'auth/facebook/callback', to: "sessions#create"
 

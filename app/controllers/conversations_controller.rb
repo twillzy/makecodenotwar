@@ -19,6 +19,10 @@ class ConversationsController < ApplicationController
     @message = Message.new
   end
 
+  def index
+    @conversations = Conversation.all
+  end
+
   private
   def conversation_params
     params.permit(:sender_id, :recipient_id)
