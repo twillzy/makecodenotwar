@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :put_solution]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution]
 
   def index
       if params[:id]
@@ -16,7 +16,6 @@ class UsersController < ApplicationController
       end
 
   end
-
 
 
   def edit
@@ -60,11 +59,28 @@ class UsersController < ApplicationController
     end
   end
 
-  def put_solution
+
+ # control the ajax post, take the var and push into db
+  def get_question
     respond_to do |format|
       format.js
     end
   end
+
+  def post_solution
+    friendship = current_user.friendships.where(friend_id: @user.id).first
+    friendship.update_attribute(:usersolution, params["solution"] )
+    render :json => []
+  end
+
+
+# if current_user.friendships.where(:friend_id, <% @user.id %>)
+# //  //if current user has a inverse_f run this
+# //  inverse_friendship 
+# //  current_user.inverse_friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
+
+# // else  
+# //  current_user.friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
 
 
   private
