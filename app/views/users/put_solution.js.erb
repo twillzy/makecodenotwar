@@ -7,6 +7,7 @@ swal({
 	animation: "slide-from-top",
 	inputPlaceholder: "Write something"
 }, function(inputValue) {
+	console.log(current_user);	
 	if (inputValue === false) return false;
 	if (inputValue === "") {
 		swal.showInputError("You need to write something!");
