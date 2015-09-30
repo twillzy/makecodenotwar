@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :put_solution]
 
   def index
       if params[:id]
@@ -16,6 +16,8 @@ class UsersController < ApplicationController
       end
 
   end
+
+
 
   def edit
     authorize! :update, @user
@@ -58,6 +60,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def put_solution
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   private
 
   def set_user
@@ -65,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def users_params
-    params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth)
+    params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth, :question)
   end
 end
 
