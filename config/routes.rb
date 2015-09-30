@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+
+
   get 'auth/facebook/callback', to: "sessions#create"
 
   # When user clicks 'sign_out', destroy session
@@ -22,8 +24,13 @@ Rails.application.routes.draw do
 
   get 'matches/get_email' => 'users#get_email'
 
+
+  get 'matches/put_solution' => 'users#put_solution'
+
   resources :conversations do
     resources :messages
   end
 
+
 end
+
