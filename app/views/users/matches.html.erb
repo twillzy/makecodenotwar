@@ -48,6 +48,7 @@ var ready = function () {
 
         var id = $(this).data('cid');
         chatBox.toggleChatBoxGrowth(id);
+        console.log('clicked');
     });
 
     /**
@@ -89,7 +90,7 @@ var ready = function () {
 }
 
 $(document).ready(ready);
-$(document).on("page:load", ready);
+// $(document).on("page:load", ready);
 $( function () {
 	console.log('hi');
 	$('[data-toggle="tooltip"]').tooltip();
