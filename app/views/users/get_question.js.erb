@@ -1,33 +1,29 @@
 swal({
 	title: "<%= @user.question %>",
-	text: "Insert your answer below:",
+	text: "Insert your code solution below:",
 	type: "input",
 	showCancelButton: true,
 	closeOnConfirm: false,
 	animation: "slide-from-top",
-	inputPlaceholder: "Write something"
+	inputPlaceholder: "Insert your solution"
 }, function(inputValue) {
 	if (inputValue === false) return false;
 	if (inputValue === "") {
 		swal.showInputError("You need to write something!");
-		return false 
+		return false
 	}
-    else 
-	$.ajax({
-		url: '<%= matches_put_solution_path(id: @user.id) %>',
-		method: 'post',
-		data: {
-			solution: inputValue
-		}
-	}).done(function () {
-		console.log('all done');
-	});
+		 $.ajax({
+	    url: "<%= matches_post_solution_path(id: @user.id) %>",
+	    method: 'post',
+	    data:{
+	    	solution: inputValue
+	    }
+	  }).done(function(){
+	  	console.log("AILI");
+	  });
 
-	swal("Nice! You have submitted your answer!");
+	swal("Nice!", "You wrote: " + inputValue, "success");
 });
+ 
 
-// u2.friendships.where(friend_id: 1).first.update_attribute(:usersolution, 'hi’)
-
-
-//james.friendships.where(friend_id: 4).first.update_attribute(:usersolution, "YES")
 

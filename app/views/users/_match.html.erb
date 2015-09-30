@@ -4,17 +4,39 @@
 	<td><%= match.updated_at.strftime('%d/%m/%Y') %></td>
 	<td class="text-right">
 
+
 	<%= link_to matches_get_question_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Test", remote: :true  do %>
 		<i class="fa fa-question-circle"></i>
 	<% end %>
+	
+  <%     
+    selfFriendship = current_user.friendships.where(friend_id: "#{match.id}")
+    friendFriendship = match.friendships.where(friend_id: current_user.id)
+  %>
 
-	<%= link_to matches_get_email_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Email", remote: :true  do %>
-		<i class="fa fa fa-envelope"></i>
-	<% end %>
+  <% if selfFriendship.present? %>
+    <% if selfFriendship.first.usersolution.present? && selfFriendship.first.friendsolution.present? %>
+      <%= link_to matches_get_email_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Solution", remote: :true  do %>
+        <i class="fa fa-lightbulb-o"></i>
+      <% end %>
 
-	<%= link_to "#", class: "start-conversation", "data-sid" => current_user.id, "data-rip" => match.id, :data => {toggle: "tooltip", placement: "top" }, title: "Start Chat", remote: :true  do %>
-		<i class="fa fa fa-comment"></i>
-	<% end %>
+      <%= link_to "#", class: "start-conversation", "data-sid" => current_user.id, "data-rip" => match.id, :data => {toggle: "tooltip", placement: "top" }, title: "Start Chat", remote: :true  do %>
+        <i class="fa fa fa-comment"></i>
+      <% end %> 
+    <% end %>
+  <% end %>
+
+  <% if friendFriendship.present? %>
+    <% if friendFriendship.first.usersolution.present? && friendFriendship.first.friendsolution.present? %>
+      <%= link_to matches_get_email_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Solution", remote: :true  do %>
+        <i class="fa fa-lightbulb-o"></i>
+      <% end %>
+
+      <%= link_to "#", class: "start-conversation", "data-sid" => current_user.id, "data-rip" => match.id, :data => {toggle: "tooltip", placement: "top" }, title: "Start Chat", remote: :true  do %>
+        <i class="fa fa fa-comment"></i>
+      <% end %>       
+    <% end %>
+  <% end %>
 
 	<%= link_to delete_friendship_path(friend_id: match.id), :data => {toggle: "tooltip", placement: "top", confirm: "Are you sure you want to unmatch with #{match.name} ?" }, title: "Unmatch", id: "delete_friendship", method: :delete do %>
 		<i class="fa fa fa-times"></i>
