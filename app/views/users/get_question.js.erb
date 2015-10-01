@@ -1,6 +1,6 @@
 swal({
 	title: "<%= @user.question %>",
-	text: "FIND THE ONE! Write a regex function (please ignore the slashes / /) to grab the numerical 1 from the string above, Please do not just write 1 that's cheating! ",
+	text: "FIND THE ONE! Write a REGEX (without the slashes / /) to grab the number 1 from the string above. Please do not just write 1 that's cheating! ",
 	type: "input",
 	showCancelButton: true,
 	closeOnConfirm: false,
@@ -8,7 +8,7 @@ swal({
 	inputPlaceholder: "Insert your solution"
 }, function(inputValue) {
 	if (inputValue === "1") {
-		swal.showInputError("You can't write 1 that's cheating!");
+		swal.showInputError("You can't write 1, that's cheating!");
 		return false
 	}
 	if (inputValue === false) return false;
@@ -27,7 +27,7 @@ swal({
 		
     
 		 if (test_null === null) {
-		     swal.showInputError("That was incorrect try again!!");
+		     swal.showInputError("That was incorrect, please try again.");
 		     return false
 		 } else {
 		     var answer = parseInt(test_null[0])
@@ -44,7 +44,7 @@ swal({
 				 });    
 
 		     } else {
-		         swal("Sorry this is incorrect try again!");
+		         swal("That was incorrect, please try again.");
 		         return false
 		     };
 		 };
