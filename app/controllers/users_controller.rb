@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution, :get_calculator]
 
   def index
       if params[:id]
@@ -71,6 +71,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def get_calculator
+    response = Unirest.get "https://love-calculator.p.mashape.com/getPercentage?fname=#{@user.name}&sname=#{current_user.name}",
+      headers:{
+        "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
+        "Accept" => "application/json"
+      }
+
+    @percentage = response.body["percentage"]
+    @result = response.body["result"]
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def notifications
     friend_count = current_user.friendships.where(:state => "ACTIVE").count
     inverse_friend_count = current_user.inverse_friendships.where(:state => "ACTIVE").count
@@ -91,35 +105,7 @@ class UsersController < ApplicationController
 
     render :json => [] 
      
-     end
-
-
-  # def post_solution
-  #   friendship = current_user.friendships.where(friend_id: @user.id).first
-  #   friendship.update_attribute(:usersolution, params["solution"] )
-  #   render :json => []
-
-
-  # end
-
-
-  # inverse_friendship = current_user.inverse_friendships.where(friend_id: @user.id).first
-
-
-#if there is a solution it will go to the person that has the friendship
-#to find a solution we first find if it is a inverse/f or friendship
-# then we find the user assoc with friendship 
-# 
-
-
-# if current_user.friendships.where(:friend_id, <% @user.id %>)
-# //  //if current user has a inverse_f run this
-# //  inverse_friendship 
-# //  current_user.inverse_friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
-
-# // else  
-# //  current_user.friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
-
+ end
 
   private
 
