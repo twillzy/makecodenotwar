@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
 
   before_action :require_login
-  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution]
+  before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution, :get_calculator]
+
 
   def index
       if params[:id]
@@ -50,67 +51,85 @@ class UsersController < ApplicationController
   def matches
     authorize! :read, @user
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
-     # binding.pry
-    # @usersol = current_user.friendships.where(friend_id: current_user.id).first.usersolution
-    #   @friendsol = current_user.friendships.where(friend_id: current_user.id).first.friendsolution
-     
-
   end
 
   def get_email
+
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+      @solution = friendship.friendsolution
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+       @solution = friendship.usersolution
+
+    end
+
     respond_to do |format|
       format.js
     end
   end
 
- # control the ajax post, take the var and push into db
   def get_question
     respond_to do |format|
       format.js
     end
   end
 
+
+  def get_calculator
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?
+      @percentage = friendship.percentage
+      @result = friendship.result
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+      @percentage = friendship.percentage
+      @result = friendship.result
+    end
+
+    if @percentage.blank?
+      response = Unirest.get "https://love-calculator.p.mashape.com/getPercentage?fname=#{@user.name}&sname=#{current_user.name}",
+        headers:{
+          "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
+          "Accept" => "application/json"
+        }
+
+
+      @percentage = response.body["percentage"]
+      @result = response.body["result"]
+
+      friendship.update_attribute(:percentage, @percentage)
+      friendship.update_attribute(:result, @result)
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def notifications
+    friend_count = current_user.friendships.where(:state => "ACTIVE").count
+    inverse_friend_count = current_user.inverse_friendships.where(:state => "ACTIVE").count
+    total = friend_count + inverse_friend_count
+    render :json => total
+  end
+
   def post_solution
-    self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
-    self_friendship = current_user.friendships.where(friend_id: @user.id).first
-    friend_friendship = @user.friendships.where(friend_id: current_user.id).first
-          unless self_inverse_friendship.blank?
-    friend_friendship.update_attribute(:friendsolution, params['solution']) 
-          else  
-      self_friendship.update_attribute(:usersolution, params['solution'])   
-      end   
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+
+      friendship.update_attribute(:usersolution, params['solution'])
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+      friendship.update_attribute(:friendsolution, params['solution'])
+
+    end
 
     render :json => [] 
      
-     end
-
-
-  # def post_solution
-  #   friendship = current_user.friendships.where(friend_id: @user.id).first
-  #   friendship.update_attribute(:usersolution, params["solution"] )
-  #   render :json => []
-
-
-  # end
-
-
-  # inverse_friendship = current_user.inverse_friendships.where(friend_id: @user.id).first
-
-
-#if there is a solution it will go to the person that has the friendship
-#to find a solution we first find if it is a inverse/f or friendship
-# then we find the user assoc with friendship 
-# 
-
-
-# if current_user.friendships.where(:friend_id, <% @user.id %>)
-# //  //if current user has a inverse_f run this
-# //  inverse_friendship 
-# //  current_user.inverse_friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
-
-# // else  
-# //  current_user.friendship.where(user_id: @friend.id).first.update_attribute(:usersolution, "inputValue");
-
+ end
 
   private
 
@@ -122,4 +141,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth, :question)
   end
 end
-
