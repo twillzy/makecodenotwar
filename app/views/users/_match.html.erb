@@ -5,10 +5,13 @@
 	<td class="text-right">
 
 
-
 	<%= link_to matches_get_question_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "Get Test", remote: :true  do %>
 		<i class="fa fa-question-circle"></i>
 	<% end %>
+
+  <%= link_to matches_get_calculator_path(id: "#{match.id}"), :data => {toggle: "tooltip", placement: "top" }, title: "See Compatibility", remote: :true  do %>
+    <i class="fa fa-calculator"></i>
+  <% end %>
 	
   <%     
     selfFriendship = current_user.friendships.where(friend_id: "#{match.id}")

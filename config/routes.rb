@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
   end
 
-
+  get 'notifications' => 'users#notifications'
 
   get 'auth/facebook/callback', to: "sessions#create"
 
@@ -26,8 +26,9 @@ Rails.application.routes.draw do
 
 
   get 'matches/get_question' => 'users#get_question'
-
+  get 'matches/get_calculator' => 'users#get_calculator'
   post 'matches/post_solution' => 'users#post_solution' 
+
 
   resources :conversations do
     resources :messages

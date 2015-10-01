@@ -61,3 +61,4 @@ gem 'data-confirm-modal', github: 'ifad/data-confirm-modal'
 gem 'rails_12factor', group: :production
 gem 'private_pub'
 gem 'thin'
+gem 'unirest', '~> 1.1.2'
