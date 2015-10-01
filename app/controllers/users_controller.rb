@@ -70,12 +70,12 @@ class UsersController < ApplicationController
     end
   end
 
-
   def get_question
     respond_to do |format|
       format.js
     end
   end
+
 
   def get_calculator
     friendship = current_user.friendships.find_by :friend_id => @user.id
@@ -94,6 +94,7 @@ class UsersController < ApplicationController
           "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
           "Accept" => "application/json"
         }
+
 
       @percentage = response.body["percentage"]
       @result = response.body["result"]
