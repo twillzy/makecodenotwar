@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929081140) do
+ActiveRecord::Schema.define(version: 20151001062924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20150929081140) do
     t.string   "state",          default: "pending"
     t.string   "usersolution"
     t.string   "friendsolution"
+    t.text     "percentage"
+    t.text     "result"
   end
 
   create_table "messages", force: :cascade do |t|
