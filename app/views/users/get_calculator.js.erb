@@ -1,0 +1,12 @@
+// response = Unirest.get "https://love-calculator.p.mashape.com/getPercentage?fname=John&sname=Alice",
+//   headers:{
+//     "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
+//     "Accept" => "application/json"
+//   }
+
+// $.ajax({
+// 	url : "https://love-calculator.p.mashape.com/getPercentage?fname=John&sname=Alice",
+
+// });
+
+swal("<%= name(current_user) %> and <%= name(@user) %>", "Your Score : <%= @percentage %>%\n<%= @result %>");

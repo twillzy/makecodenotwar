@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
 
   get 'matches/get_question' => 'users#get_question'
+  get 'matches/get_calculator' => 'users#get_calculator'
 
   post 'matches/post_solution' => 'users#post_solution' 
 
