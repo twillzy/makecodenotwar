@@ -59,6 +59,17 @@ class UsersController < ApplicationController
   end
 
   def get_email
+
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+      @solution = friendship.usersolution
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+       @solution = friendship.friendsolution
+
+    end
+
     respond_to do |format|
       format.js
     end
@@ -82,14 +93,25 @@ class UsersController < ApplicationController
 
 
   def post_solution
-    self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
-    self_friendship = current_user.friendships.where(friend_id: @user.id).first
-    friend_friendship = @user.friendships.where(friend_id: current_user.id).first
-          unless self_inverse_friendship.blank?
-    friend_friendship.update_attribute(:friendsolution, params['solution']) 
-          else  
-      self_friendship.update_attribute(:usersolution, params['solution'])   
-      end   
+    # self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
+    # self_friendship = current_user.friendships.where(friend_id: @user.id).first
+    # friend_friendship = @user.friendships.where(friend_id: current_user.id).first
+    #       unless self_inverse_friendship.blank?
+    # friend_friendship.update_attribute(:friendsolution, params['solution']) 
+    #       else  
+    #   self_friendship.update_attribute(:usersolution, params['solution'])   
+    #   end   
+
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+
+      friendship.update_attribute(:usersolution, params['solution'])
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+      friendship.update_attribute(:friendsolution, params['solution'])
+
+    end
 
     render :json => [] 
      
