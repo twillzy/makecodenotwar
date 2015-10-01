@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :require_login
   before_action :set_user, only: [:edit, :profile, :update, :destroy, :get_email, :matches, :get_question, :post_solution, :get_calculator]
 
+
   def index
       if params[:id]
         @users = User.gender(current_user).not_me(current_user).where('id < ?', params[:id]).limit(10) - current_user.matches(current_user)
@@ -58,13 +59,23 @@ class UsersController < ApplicationController
   end
 
   def get_email
+
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+      @solution = friendship.usersolution
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+       @solution = friendship.friendsolution
+
+    end
+
     respond_to do |format|
       format.js
     end
   end
 
 
- # control the ajax post, take the var and push into db
   def get_question
     respond_to do |format|
       format.js
@@ -93,15 +104,28 @@ class UsersController < ApplicationController
   end
 
 
+
+
   def post_solution
-    self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
-    self_friendship = current_user.friendships.where(friend_id: @user.id).first
-    friend_friendship = @user.friendships.where(friend_id: current_user.id).first
-          unless self_inverse_friendship.blank?
-    friend_friendship.update_attribute(:friendsolution, params['solution']) 
-          else  
-      self_friendship.update_attribute(:usersolution, params['solution'])   
-      end   
+    # self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
+    # self_friendship = current_user.friendships.where(friend_id: @user.id).first
+    # friend_friendship = @user.friendships.where(friend_id: current_user.id).first
+    #       unless self_inverse_friendship.blank?
+    # friend_friendship.update_attribute(:friendsolution, params['solution']) 
+    #       else  
+    #   self_friendship.update_attribute(:usersolution, params['solution'])   
+    #   end   
+
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?  
+
+      friendship.update_attribute(:usersolution, params['solution'])
+    
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+      friendship.update_attribute(:friendsolution, params['solution'])
+
+    end
 
     render :json => [] 
      
@@ -117,4 +141,23 @@ class UsersController < ApplicationController
     params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth, :question)
   end
 end
+
+    #get the friendship, and figuer out if friend or user , and then figure out which slot to put in 
+    #  @this_inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
+    # if @this_inverse_friendship.blank?
+    #   current_user.friendships.where(friend_id: @user.id).first.update_attribute(:usersolution, params['solution'])
+    #  else 
+    #   @user.friendships.where(friend_id: current_user.id).first.update_attribute(:friendsolution, params['solution'])        
+ 
+    # end
+
+
+  #     inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
+
+  #       friendship = current_user.friendships.where(friend_id: @user.id).first
+  #        if inverse_friendship.blank?
+  #   friendship.update_attribute(:usersolution, params['solution']) 
+  # else  
+  #     friendship.update_attribute(:friendsolution, params['solution']) 
+
 
