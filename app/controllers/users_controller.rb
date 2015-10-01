@@ -71,6 +71,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def notifications
+    friend_count = current_user.friendships.where(:state => "ACTIVE").count
+    inverse_friend_count = current_user.inverse_friendships.where(:state => "ACTIVE").count
+    total = friend_count + inverse_friend_count
+    render :json => total
+  end
+
 
 
 
