@@ -1,27 +1,54 @@
 swal({
 	title: "<%= @user.question %>",
-	text: "Insert your code solution below:",
+	text: "FIND THE ONE! Write a regex function (please ignore the slashes / /) to grab the numerical 1 from the string above, Please do not just write 1 that's cheating! ",
 	type: "input",
 	showCancelButton: true,
 	closeOnConfirm: false,
 	animation: "slide-from-top",
 	inputPlaceholder: "Insert your solution"
-}, function(inputValue) {	
+}, function(inputValue) {
+	if (inputValue === "1") {
+		swal.showInputError("You can't write 1 that's cheating!");
+		return false
+	}
 	if (inputValue === false) return false;
+
 	if (inputValue === "") {
 		swal.showInputError("You need to write something!");
 		return false
 	}
-		 $.ajax({
-	    url: "<%= matches_post_solution_path(id: @user.id) %>",
-	    method: 'post',
-	    data:{
-	    	solution: inputValue
-	    }
-	  }).done(function(){
-	  });
+	if (inputValue === 1) return false;
+  
+      
+		 var question = "<%= @user.question %>";
+		 var solution = inputValue;
+		 var solution = solution.replace(/\//g, '')
+		 var test_null = question.match(solution);
+		
+    
+		 if (test_null === null) {
+		     swal.showInputError("That was incorrect try again!!");
+		     return false
+		 } else {
+		     var answer = parseInt(test_null[0])
+		     if (answer === 1) {
+		         swal("Nice! you got it right!");
+		      $.ajax({
+				     url: "<%= matches_post_solution_path(id: @user.id) %>",
+				     method: 'post',
+				     data: {
+				         solution: inputValue
+				     }
+				 }).done(function() {
+				     console.log("AILI");
+				 });    
 
-	swal("Nice!", "You wrote: " + inputValue, "success");
-});
-
-
+		     } else {
+		         swal("Sorry this is incorrect try again!");
+		         return false
+		     };
+		 };
+				
+	 
+          });
+ 
