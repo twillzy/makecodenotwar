@@ -26,12 +26,8 @@ Rails.application.routes.draw do
 
 
   get 'matches/get_question' => 'users#get_question'
-<<<<<<< HEAD
-  post 'matches/put_solution' => 'users#put_solution'
-=======
-
   post 'matches/post_solution' => 'users#post_solution' 
->>>>>>> f20ed0f70e99f10f0d72edb3286eb499b7097751
+
 
   resources :conversations do
     resources :messages
