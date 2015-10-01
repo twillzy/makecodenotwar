@@ -51,22 +51,17 @@ class UsersController < ApplicationController
   def matches
     authorize! :read, @user
     @matches = current_user.friendships.where(state: "ACTIVE").map(&:friend) + current_user.inverse_friendships.where(state: "ACTIVE").map(&:user)
-     # binding.pry
-    # @usersol = current_user.friendships.where(friend_id: current_user.id).first.usersolution
-    #   @friendsol = current_user.friendships.where(friend_id: current_user.id).first.friendsolution
-     
-
   end
 
   def get_email
 
     friendship = current_user.friendships.find_by :friend_id => @user.id
     if friendship.present?  
-      @solution = friendship.usersolution
+      @solution = friendship.friendsolution
     
     else
       friendship = current_user.inverse_friendships.find_by :user_id => @user.id
-       @solution = friendship.friendsolution
+       @solution = friendship.usersolution
 
     end
 
@@ -83,14 +78,30 @@ class UsersController < ApplicationController
   end
 
   def get_calculator
-    response = Unirest.get "https://love-calculator.p.mashape.com/getPercentage?fname=#{@user.name}&sname=#{current_user.name}",
-      headers:{
-        "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
-        "Accept" => "application/json"
-      }
+    friendship = current_user.friendships.find_by :friend_id => @user.id
+    if friendship.present?
+      @percentage = friendship.percentage
+      @result = friendship.result
+    else
+      friendship = current_user.inverse_friendships.find_by :user_id => @user.id
+      @percentage = friendship.percentage
+      @result = friendship.result
+    end
 
-    @percentage = response.body["percentage"]
-    @result = response.body["result"]
+    if @percentage.blank?
+      response = Unirest.get "https://love-calculator.p.mashape.com/getPercentage?fname=#{@user.name}&sname=#{current_user.name}",
+        headers:{
+          "X-Mashape-Key" => "NPNKL3rOHYmshOFMBaiAWKuB4lUMp1lcOZIjsnw5jInt6RSevU",
+          "Accept" => "application/json"
+        }
+
+      @percentage = response.body["percentage"]
+      @result = response.body["result"]
+
+      friendship.update_attribute(:percentage, @percentage)
+      friendship.update_attribute(:result, @result)
+    end
+
     respond_to do |format|
       format.js
     end
@@ -103,19 +114,7 @@ class UsersController < ApplicationController
     render :json => total
   end
 
-
-
-
   def post_solution
-    # self_inverse_friendship = current_user.inverse_friendships.where(friend_id: current_user.id).first
-    # self_friendship = current_user.friendships.where(friend_id: @user.id).first
-    # friend_friendship = @user.friendships.where(friend_id: current_user.id).first
-    #       unless self_inverse_friendship.blank?
-    # friend_friendship.update_attribute(:friendsolution, params['solution']) 
-    #       else  
-    #   self_friendship.update_attribute(:usersolution, params['solution'])   
-    #   end   
-
     friendship = current_user.friendships.find_by :friend_id => @user.id
     if friendship.present?  
 
@@ -141,23 +140,3 @@ class UsersController < ApplicationController
     params.require(:user).permit(:interest, :bio, :avatar, :location, :date_of_birth, :question)
   end
 end
-
-    #get the friendship, and figuer out if friend or user , and then figure out which slot to put in 
-    #  @this_inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
-    # if @this_inverse_friendship.blank?
-    #   current_user.friendships.where(friend_id: @user.id).first.update_attribute(:usersolution, params['solution'])
-    #  else 
-    #   @user.friendships.where(friend_id: current_user.id).first.update_attribute(:friendsolution, params['solution'])        
- 
-    # end
-
-
-  #     inverse_friendship = current_user.inverse_friendships.where(user_id: current_user.id)
-
-  #       friendship = current_user.friendships.where(friend_id: @user.id).first
-  #        if inverse_friendship.blank?
-  #   friendship.update_attribute(:usersolution, params['solution']) 
-  # else  
-  #     friendship.update_attribute(:friendsolution, params['solution']) 
-
-

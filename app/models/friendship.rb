@@ -11,6 +11,8 @@
 #  state          :string           default("pending")
 #  usersolution   :string
 #  friendsolution :string
+#  percentage     :text
+#  result         :text
 #
 
 class Friendship < ActiveRecord::Base
