@@ -1,6 +1,6 @@
 <tr>
 	<th scope="row"><%= image_tag "#{match.avatar}", size: "30x30" %></th>
-	<td><%= link_to match.name, profile_user_path(match.id) %></td>
+	<td><%= link_to name(match), profile_user_path(match.id) %></td>
 	<td><%= match.updated_at.strftime('%d/%m/%Y') %></td>
 	<td class="text-right">
 
