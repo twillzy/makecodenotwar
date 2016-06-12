@@ -309,7 +309,7 @@
 		base.resizeNow = function(){
 			
 			return base.$el.each(function() {
-		  		//  Resize each image seperately
+		  		//  Resize each image separately
 		  		$('img', base.el).each(function(){
 		  			
 					thisSlide = $(this);
